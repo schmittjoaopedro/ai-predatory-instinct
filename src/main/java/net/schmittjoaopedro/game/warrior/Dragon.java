@@ -22,6 +22,10 @@ public class Dragon extends Warrior {
         return this.life;
     }
 
+    public void setLife(double life) {
+        this.life = life;
+    }
+
     public DamageType getDamageType() {
         return DamageType.AirGround;
     }
@@ -36,11 +40,6 @@ public class Dragon extends Warrior {
 
     public double getDamage() {
         return 83.0;
-    }
-
-    public boolean attack(double damage) {
-        this.life -= damage;
-        return this.life <= 0;
     }
 
     public double getElixirCost() {

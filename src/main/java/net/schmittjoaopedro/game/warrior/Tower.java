@@ -22,6 +22,10 @@ public class Tower extends Warrior {
         return this.life;
     }
 
+    public void setLife(double life) {
+        this.life = life;
+    }
+
     public DamageType getDamageType() {
         return DamageType.AirGround;
     }
@@ -36,11 +40,6 @@ public class Tower extends Warrior {
 
     public double getDamage() {
         return 91.0;
-    }
-
-    public boolean attack(double damage) {
-        this.life -= damage;
-        return this.life <= 0;
     }
 
     public double getElixirCost() {

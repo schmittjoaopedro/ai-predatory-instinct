@@ -57,6 +57,9 @@ public class Arena {
     }
 
     public void advanceStep() {
+        for(Player player : this.getPlayers()) {
+            player.nextStep();
+        }
         for(Warrior warrior : this.getWarriors()) {
             warrior.nextStep();
         }
@@ -70,5 +73,6 @@ public class Arena {
         System.out.format("Live: %d\tKilled: %d\tSummoned: %d\n", this.getWarriors().size(), bodies.size(), this.getSummons().size());
         this.getSummons().clear();
     }
+
 
 }

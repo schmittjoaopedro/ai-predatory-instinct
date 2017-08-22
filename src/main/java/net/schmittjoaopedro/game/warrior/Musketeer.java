@@ -22,6 +22,10 @@ public class Musketeer extends Warrior {
         return this.life;
     }
 
+    public void setLife(double life) {
+        this.life = life;
+    }
+
     public DamageType getDamageType() {
         return DamageType.AirGround;
     }
@@ -32,11 +36,6 @@ public class Musketeer extends Warrior {
 
     public double getRange() {
         return 6;
-    }
-
-    public boolean attack(double damage) {
-        this.life -= damage;
-        return this.life <= 0;
     }
 
     public double getElixirCost() {

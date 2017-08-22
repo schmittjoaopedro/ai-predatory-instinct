@@ -29,6 +29,8 @@ public abstract class Warrior {
 
     public abstract double getLife();
 
+    public abstract void setLife(double life);
+
     public abstract DamageType getDamageType();
 
     public abstract WarriorType getWarriorType();
@@ -37,11 +39,16 @@ public abstract class Warrior {
 
     public abstract double getDamage();
 
-    public abstract boolean attack(double damage);
+    public boolean attack(double damage) {
+        if(damage >= this.getLife()) {
+            damage = this.getLife();
+        }
+        this.setLife(this.getLife() - damage);
+        this.getPlayer().attack(damage);
+        return this.getLife() <= 0;
+    }
 
     public abstract double getElixirCost();
-
-    public void special(Arena environment) {}
 
     public double getX() {
         return x;

@@ -24,6 +24,10 @@ public class Witch extends Warrior {
         return this.life;
     }
 
+    public void setLife(double life) {
+        this.life = life;
+    }
+
     public DamageType getDamageType() {
         return DamageType.AirGround;
     }
@@ -36,21 +40,12 @@ public class Witch extends Warrior {
         return 3;
     }
 
-    public boolean attack(double damage) {
-        this.life -= damage;
-        return this.life <= 0;
-    }
-
     public double getElixirCost() {
         return 5.0;
     }
 
     public double getDamage() {
         return 98.0;
-    }
-
-    public void special(Arena environment) {
-
     }
 
     private Warrior findNearestEnemy() {

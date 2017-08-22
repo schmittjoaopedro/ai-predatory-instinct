@@ -22,6 +22,10 @@ public class Giant extends Warrior {
         return this.life;
     }
 
+    public void setLife(double life) {
+        this.life = life;
+    }
+
     public DamageType getDamageType() {
         return DamageType.Building;
     }
@@ -32,11 +36,6 @@ public class Giant extends Warrior {
 
     public double getRange() {
         return 1.0;
-    }
-
-    public boolean attack(double damage) {
-        this.life -= damage;
-        return this.life <= 0;
     }
 
     public double getElixirCost() {

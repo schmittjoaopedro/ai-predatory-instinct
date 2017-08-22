@@ -22,6 +22,10 @@ public class Skeleton extends Warrior {
         return this.life;
     }
 
+    public void setLife(double life) {
+        this.life = life;
+    }
+
     public DamageType getDamageType() {
         return DamageType.Ground;
     }
@@ -36,11 +40,6 @@ public class Skeleton extends Warrior {
 
     public double getDamage() {
         return 67.0;
-    }
-
-    public boolean attack(double damage) {
-        this.life -= damage;
-        return this.life <= 0;
     }
 
     public double getElixirCost() {
