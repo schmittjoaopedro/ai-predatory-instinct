@@ -5,7 +5,6 @@ import net.schmittjoaopedro.game.warrior.Tower;
 import net.schmittjoaopedro.game.warrior.Warrior;
 
 import java.awt.*;
-import java.util.List;
 
 public class Player {
 
@@ -37,7 +36,9 @@ public class Player {
 
     private Tower tower;
 
-    public Player(double LH, double LW, double UH, double UW, Color color, Arena arena) {
+    private int deckSize;
+
+    public Player(double LH, double LW, double UH, double UW, Color color, Arena arena, boolean initTower) {
         super();
         this.UH = UH;
         this.LH = LH;
@@ -45,13 +46,16 @@ public class Player {
         this.LW = LW;
         this.color = color;
         this.arena = arena;
-        tower = new Tower(this, arena, (UW - LW - 1.0) / 2.0, LH == 0.0 ? 0.0 : UH - 1);
-        arena.getWarriors().add(tower);
-        lifeAmount += tower.getLife();
-        arena.getPlayers().add(this);
+        if(initTower) {
+            tower = new Tower(this, arena, (UW - LW - 1.0) / 2.0, LH == 0.0 ? 0.0 : UH - 1);
+            arena.getWarriors().add(tower);
+            lifeAmount += tower.getLife();
+            arena.getPlayers().add(this);
+        }
     }
 
     public void randomInit(int deckSize) {
+        this.deckSize = deckSize;
         cardXPosition = new double[deckSize];
         cardYPosition = new double[deckSize];
         cardsSequence = new String[deckSize];
@@ -118,10 +122,95 @@ public class Player {
             lifeAmount += warrior.getLife();
             currentCard++;
         }
+        if(currentCard >= cardsSequence.length) {
+            currentCard = 0;
+        }
     }
 
     public boolean isDead() {
         return this.tower.isDead();
+    }
+
+    public void setLifeAmount(double lifeAmount) {
+        this.lifeAmount = lifeAmount;
+    }
+
+    public void setDamageAmount(double damageAmount) {
+        this.damageAmount = damageAmount;
+    }
+
+    public void setArena(Arena arena) {
+        this.arena = arena;
+    }
+
+    public int getDeckSize() {
+        return deckSize;
+    }
+
+    public void setDeckSize(int deckSize) {
+        this.deckSize = deckSize;
+    }
+
+    public Tower getTower() {
+        return tower;
+    }
+
+    public void setTower(Tower tower) {
+        this.tower = tower;
+    }
+
+    public String[] getCardsSequence() {
+        return cardsSequence;
+    }
+
+    public void setCardsSequence(String[] cardsSequence) {
+        this.cardsSequence = cardsSequence;
+    }
+
+    public double[] getCardXPosition() {
+        return cardXPosition;
+    }
+
+    public void setCardXPosition(double[] cardXPosition) {
+        this.cardXPosition = cardXPosition;
+    }
+
+    public double[] getCardYPosition() {
+        return cardYPosition;
+    }
+
+    public void setCardYPosition(double[] cardYPosition) {
+        this.cardYPosition = cardYPosition;
+    }
+
+    public int getCurrentCard() {
+        return currentCard;
+    }
+
+    public void setCurrentCard(int currentCard) {
+        this.currentCard = currentCard;
+    }
+
+    public Player clone(Arena arena, boolean deep) {
+        Player player = new Player(this.getLH(), this.getLW(), this.getUH(), this.getUW(), this.getColor(), arena, false);
+        player.setDeckSize(this.getDeckSize());
+        player.setDamageAmount(this.getDamageAmount());
+        player.setElixirAmount(this.getElixirAmount());
+        player.setLifeAmount(this.getLifeAmount());
+        player.setDeck(this.getCardsSequence(), this.getCardXPosition(), this.getCardYPosition());
+        player.setCurrentCard(this.getCurrentCard());
+        if(deep) {
+            for(Warrior warrior : this.arena.getWarriors()) {
+                if(warrior.getPlayer().equals(this) && !warrior.isDead()) {
+                    Warrior newWarrior = warrior.clone(arena, player);
+                    arena.getWarriors().add(newWarrior);
+                    if(warrior.getClass().equals(Tower.class) && warrior.getPlayer().equals(this)) {
+                        player.setTower((Tower) warrior);
+                    }
+                }
+            }
+        }
+        return player;
     }
 
 }

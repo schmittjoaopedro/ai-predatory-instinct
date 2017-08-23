@@ -3,6 +3,8 @@ package net.schmittjoaopedro.game.warrior;
 import net.schmittjoaopedro.game.Arena;
 import net.schmittjoaopedro.game.Player;
 
+import java.util.Date;
+
 public abstract class Warrior {
 
     protected Warrior target;
@@ -17,12 +19,15 @@ public abstract class Warrior {
 
     private double stepSize = 1.0;
 
+    private Long id;
+
     public Warrior(String letter, Arena arena, double x, double y) {
         super();
         this.letter = letter;
         this.arena = arena;
         this.setX(x);
         this.setY(y);
+        this.setId((new Date()).getTime());
     }
 
     public abstract Player getPlayer();
@@ -38,6 +43,14 @@ public abstract class Warrior {
     public abstract double getRange();
 
     public abstract double getDamage();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public boolean attack(double damage) {
         if(damage >= this.getLife()) {
@@ -80,6 +93,10 @@ public abstract class Warrior {
 
     public abstract void nextStep();
 
+    public void setTarget(Warrior target) {
+        this.target = target;
+    }
+
     protected void moveTo(Warrior warrior) {
         double sX = warrior.getX() - this.getX();
         double sY = warrior.getY() - this.getY();
@@ -111,4 +128,7 @@ public abstract class Warrior {
     public Warrior getTarget() {
         return target;
     }
+
+    public abstract Warrior clone(Arena arena, Player player);
+
 }

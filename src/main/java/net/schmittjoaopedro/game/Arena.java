@@ -2,6 +2,7 @@ package net.schmittjoaopedro.game;
 
 import net.schmittjoaopedro.game.warrior.Warrior;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,6 @@ public class Arena {
     private List<Warrior> summons;
 
     private List<Player> players;
-
-    private double elixirAmount = 0.0;
 
     public Arena(double width, double height) {
         super();
@@ -57,6 +56,10 @@ public class Arena {
     }
 
     public void advanceStep() {
+        advanceStep(false);
+    }
+
+    public void advanceStep(boolean log) {
         for(Player player : this.getPlayers()) {
             player.nextStep();
         }
@@ -70,9 +73,48 @@ public class Arena {
         }
         this.getWarriors().removeAll(bodies);
         this.getWarriors().addAll(this.getSummons());
-        System.out.format("Live: %d\tKilled: %d\tSummoned: %d\n", this.getWarriors().size(), bodies.size(), this.getSummons().size());
+        if(log) {
+            int p1 = 0;
+            int p2 = 0;
+            for(Warrior w : this.getWarriors()) {
+                if(Color.RED.equals(w.getPlayer().getColor())) p1++;
+                else p2++;
+            }
+            System.out.format("Red: %d\tBlue: %d\n", p1, p2);
+        }
         this.getSummons().clear();
     }
 
+    public Player getPlayerByColor(Color color) {
+        for(Player player : this.getPlayers()) {
+            if(player.getColor().equals(color)) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public Arena clone(boolean deep) {
+        Arena arena = new Arena(this.getWidth(), this.getHeight());
+        if(deep) {
+            for(Player player : this.getPlayers()) {
+                arena.getPlayers().add(player.clone(arena, deep));
+            }
+            for(Warrior warrior : this.getWarriors()) {
+                if(warrior.getTarget() != null && !warrior.getTarget().isDead()) {
+                    Warrior attacker = arena.getWarriorById(warrior.getId());
+                    attacker.setTarget(arena.getWarriorById(warrior.getTarget().getId()));
+                }
+            }
+        }
+        return arena;
+    }
+
+    private Warrior getWarriorById(Long id) {
+        for(Warrior warrior : this.getWarriors()) {
+            if(warrior.getId().equals(id)) return warrior;
+        }
+        return null;
+    }
 
 }

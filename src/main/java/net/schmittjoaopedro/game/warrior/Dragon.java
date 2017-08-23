@@ -71,4 +71,11 @@ public class Dragon extends Warrior {
         }
     }
 
+    @Override
+    public Warrior clone(Arena arena, Player player) {
+        Dragon dragon = new Dragon(player, arena, this.getX(), this.getY());
+        dragon.setLife(this.getLife());
+        dragon.setId(this.getId());
+        return dragon;
+    }
 }

@@ -81,4 +81,21 @@ public class Witch extends Warrior {
             arena.getSummons().add(skeleton);
         }
     }
+
+    public int getSummonTime() {
+        return summonTime;
+    }
+
+    public void setSummonTime(int summonTime) {
+        this.summonTime = summonTime;
+    }
+
+    @Override
+    public Warrior clone(Arena arena, Player player) {
+        Witch witch = new Witch(player, arena, this.getX(), this.getY());
+        witch.setLife(this.getLife());
+        witch.setSummonTime(witch.getSummonTime());
+        witch.setId(this.getId());
+        return witch;
+    }
 }

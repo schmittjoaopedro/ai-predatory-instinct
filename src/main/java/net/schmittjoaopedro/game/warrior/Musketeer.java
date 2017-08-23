@@ -70,4 +70,13 @@ public class Musketeer extends Warrior {
             }
         }
     }
+
+    @Override
+    public Warrior clone(Arena arena, Player player) {
+        Musketeer musketeer = new Musketeer(player, arena, this.getX(), this.getY());
+        musketeer.setLife(this.getLife());
+        musketeer.setId(this.getId());
+        return musketeer;
+    }
+
 }

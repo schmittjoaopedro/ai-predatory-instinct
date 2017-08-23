@@ -70,4 +70,12 @@ public class Giant extends Warrior {
             }
         }
     }
+
+    @Override
+    public Warrior clone(Arena arena, Player player) {
+        Giant giant = new Giant(player, arena, this.getX(), this.getY());
+        giant.setLife(this.getLife());
+        giant.setId(this.getId());
+        return giant;
+    }
 }

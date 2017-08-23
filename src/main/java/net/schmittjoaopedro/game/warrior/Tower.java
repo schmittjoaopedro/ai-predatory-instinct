@@ -70,4 +70,12 @@ public class Tower extends Warrior {
             }
         }
     }
+
+    @Override
+    public Warrior clone(Arena arena, Player player) {
+        Tower tower = new Tower(player, arena, this.getX(), this.getY());
+        tower.setLife(this.getLife());
+        tower.setId(this.getId());
+        return tower;
+    }
 }

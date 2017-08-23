@@ -70,4 +70,12 @@ public class Skeleton extends Warrior {
             }
         }
     }
+
+    @Override
+    public Warrior clone(Arena arena, Player player) {
+        Skeleton skeleton = new Skeleton(player, arena, this.getX(), this.getY());
+        skeleton.setLife(this.getLife());
+        skeleton.setId(this.getId());
+        return skeleton;
+    }
 }
