@@ -15,10 +15,12 @@ public class WarriorManager {
 
     private WarriorManager() {
         super();
+        WarriorManager.CARDS.put("P", Minipeka.class);
         WarriorManager.CARDS.put("M", Musketeer.class);
         WarriorManager.CARDS.put("W", Witch.class);
         WarriorManager.CARDS.put("G", Giant.class);
         WarriorManager.CARDS.put("D", Dragon.class);
+        WarriorManager.CARD_ELIXIR.put("P", 4.0);
         WarriorManager.CARD_ELIXIR.put("M", 4.0);
         WarriorManager.CARD_ELIXIR.put("W", 5.0);
         WarriorManager.CARD_ELIXIR.put("G", 5.0);

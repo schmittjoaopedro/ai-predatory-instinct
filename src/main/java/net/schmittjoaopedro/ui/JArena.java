@@ -90,9 +90,12 @@ public class JArena extends JPanel {
                 if (warrior.getClass().equals(Tower.class)) {
                     imageName = "king_tower.png";
                 }
+                if (warrior.getClass().equals(Minipeka.class)) {
+                    imageName = "minipeka.png";
+                }
                 if(imageName != null) {
-                    int x = (int) ((warrior.getX() * this.scaleW) + (this.scaleW / 2) - 15);
-                    int y = (int) ((warrior.getY() * this.scaleH) + (this.scaleH / 2) - 15);
+                    int x = (int) ((warrior.getX() * this.scaleW) + (this.scaleW / 2) - 15 + (1 - Math.random() * this.scaleW / 4));
+                    int y = (int) ((warrior.getY() * this.scaleH) + (this.scaleH / 2) - 15 + (1 - Math.random() * this.scaleH / 4));
                     final BufferedImage image = ImageIO.read(new File(imagePath + imageName));
                     graphics.setColor(warrior.getPlayer().getColor());
                     graphics.fillRect(x, y, 30, 30);

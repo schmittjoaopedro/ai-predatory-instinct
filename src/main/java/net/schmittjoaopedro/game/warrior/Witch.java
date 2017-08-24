@@ -72,13 +72,15 @@ public class Witch extends Warrior {
                 this.moveTo(this.target);
             }
         }
-        if(summonTime % 10 == 0) {
+        if(summonTime % 5 == 0) {
             double xLeft = this.getX() - 1 < 0 ? 0 : this.getX() - 1;
             Skeleton skeleton = new Skeleton(this.getPlayer(), this.arena, xLeft, this.getY());
             arena.getSummons().add(skeleton);
+            this.getPlayer().setLifeAmount(this.getPlayer().getLifeAmount() + skeleton.getLife());
             double xRight = this.getX() + 1 >= arena.getWidth() ? arena.getWidth() - 1 : this.getX() + 1;
             skeleton = new Skeleton(this.getPlayer(), this.arena, xRight, this.getY());
             arena.getSummons().add(skeleton);
+            this.getPlayer().setLifeAmount(this.getPlayer().getLifeAmount() + skeleton.getLife());
         }
     }
 

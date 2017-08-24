@@ -26,16 +26,20 @@ public class App
             Player player1 = new Player(0, 0, 10, 11, Color.RED, arena, true);
             player1.setEvolving(true);
             Player player2 = new Player(10, 0, 20, 11, Color.BLUE, arena, true);
-            player2.setEvolving(false);
+            player2.setEvolving(true);
 
             player1.randomInit(10);
-            player2.randomInit(10);
+//            player2.randomInit(10);
+
+            player2.setCardsSequence(new String[] {"P","P","P","P","P","P","P","P","P","P"});
+            player2.setCardXPosition(new double[] {1.0,1.0,1.0,7.0,7.0,7.0,7.0,4.0,4.0,4.0});
+            player2.setCardYPosition(new double[] {18.0,18.0,14.0,19.0,16.0,12.0,12.0,19.0,12.0,12.0});
 
             JView view = new JView(800, 700);
             view.draw(arena);
 
-            GeneticAlgorithm gaRed = new GeneticAlgorithm(arena, Color.RED, Color.BLUE, 10, 50, 20, 0.015);
-//            GeneticAlgorithm gaBlue = new GeneticAlgorithm(arena, Color.BLUE, Color.RED,10, 50, 20, 0.015);
+            GeneticAlgorithm gaRed = new GeneticAlgorithm(arena, Color.RED, Color.BLUE, 20, 100, 40, 0.015);
+//            GeneticAlgorithm gaBlue = new GeneticAlgorithm(arena, Color.BLUE, Color.RED,20, 100, 40, 0.015);
 
             for (int i = 0; i < 1000; i++) {
                 if (player1.isDead() || player2.isDead()) break;
