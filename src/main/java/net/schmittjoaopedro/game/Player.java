@@ -38,6 +38,10 @@ public class Player {
 
     private int deckSize;
 
+    private boolean evolving = true;
+
+    private boolean stop = false;
+
     public Player(double LH, double LW, double UH, double UW, Color color, Arena arena, boolean initTower) {
         super();
         this.UH = UH;
@@ -113,17 +117,22 @@ public class Player {
     }
 
     public void nextStep() {
-        elixirAmount++;
-        String nextCard = cardsSequence[currentCard];
-        if(currentCard < cardsSequence.length && WarriorManager.getInstance().warriorAvailable(nextCard, elixirAmount)) {
-            Warrior warrior = WarriorManager.getInstance().getCard(this, arena, nextCard, cardXPosition[currentCard], cardYPosition[currentCard]);
-            this.elixirAmount -= warrior.getElixirCost();
-            arena.getWarriors().add(warrior);
-            lifeAmount += warrior.getLife();
-            currentCard++;
-        }
-        if(currentCard >= cardsSequence.length) {
-            currentCard = 0;
+        if(!stop) {
+            elixirAmount++;
+            String nextCard = cardsSequence[currentCard];
+            if (currentCard < cardsSequence.length && WarriorManager.getInstance().warriorAvailable(nextCard, elixirAmount)) {
+                Warrior warrior = WarriorManager.getInstance().getCard(this, arena, nextCard, cardXPosition[currentCard], cardYPosition[currentCard]);
+                this.elixirAmount -= warrior.getElixirCost();
+                arena.getWarriors().add(warrior);
+                lifeAmount += warrior.getLife();
+                currentCard++;
+            }
+            if (currentCard >= cardsSequence.length) {
+                currentCard = 0;
+                if (!this.isEvolving()) {
+                    this.randomInit(this.getDeckSize());
+                }
+            }
         }
     }
 
@@ -191,13 +200,29 @@ public class Player {
         this.currentCard = currentCard;
     }
 
+    public boolean isEvolving() {
+        return evolving;
+    }
+
+    public void setEvolving(boolean evolving) {
+        this.evolving = evolving;
+    }
+
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+
     public Player clone(Arena arena, boolean deep) {
         Player player = new Player(this.getLH(), this.getLW(), this.getUH(), this.getUW(), this.getColor(), arena, false);
         player.setDeckSize(this.getDeckSize());
         player.setDamageAmount(this.getDamageAmount());
         player.setElixirAmount(this.getElixirAmount());
         player.setLifeAmount(this.getLifeAmount());
-        player.setDeck(this.getCardsSequence(), this.getCardXPosition(), this.getCardYPosition());
+        player.setDeck(this.getCardsSequence().clone(), this.getCardXPosition().clone(), this.getCardYPosition().clone());
         player.setCurrentCard(this.getCurrentCard());
         if(deep) {
             for(Warrior warrior : this.arena.getWarriors()) {
@@ -213,4 +238,12 @@ public class Player {
         return player;
     }
 
+    @Override
+    public String toString() {
+        String body = "";
+        for(String s : getCardsSequence()) {
+            body += s;
+        }
+        return body;
+    }
 }
