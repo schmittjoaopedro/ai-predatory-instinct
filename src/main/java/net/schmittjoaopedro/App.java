@@ -8,12 +8,8 @@ import net.schmittjoaopedro.ui.JView;
 import java.awt.*;
 import java.util.Locale;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
+public class App  {
+
     public static void main( String[] args ) throws Exception {
 
         int p1 = 0;
@@ -24,31 +20,24 @@ public class App
             Arena arena = new Arena(11, 20);
 
             Player player1 = new Player(0, 0, 10, 11, Color.RED, arena, true);
-            player1.setEvolving(true);
+            player1.setEvolving(false);
             Player player2 = new Player(10, 0, 20, 11, Color.BLUE, arena, true);
             player2.setEvolving(true);
 
             player1.randomInit(10);
-//            player2.randomInit(10);
+            player2.randomInit(10);
 
-            player2.setCardsSequence(new String[] {"P","P","P","P","P","P","P","P","P","P"});
-            player2.setCardXPosition(new double[] {1.0,1.0,1.0,7.0,7.0,7.0,7.0,4.0,4.0,4.0});
-            player2.setCardYPosition(new double[] {18.0,18.0,14.0,19.0,16.0,12.0,12.0,19.0,12.0,12.0});
+            JView view = new JView(800, 600);
 
-            JView view = new JView(800, 700);
-            view.draw(arena);
-
-            GeneticAlgorithm gaRed = new GeneticAlgorithm(arena, Color.RED, Color.BLUE, 20, 100, 40, 0.015);
-//            GeneticAlgorithm gaBlue = new GeneticAlgorithm(arena, Color.BLUE, Color.RED,20, 100, 40, 0.015);
+            GeneticAlgorithm gaRed = new GeneticAlgorithm(arena, Color.BLUE, Color.RED, 20, 100, 40, 0.015);
 
             for (int i = 0; i < 1000; i++) {
                 if (player1.isDead() || player2.isDead()) break;
                 System.out.format(Locale.US, "P1[%.2f]\t\tp2[%.2f]\t", (player1.getLifeAmount() - player1.getDamageAmount()), (player2.getLifeAmount() - player2.getDamageAmount()));
                 arena.advanceStep(true);
                 view.draw(arena);
-                Thread.sleep(300);
+                Thread.sleep(100);
                 gaRed.evolve();
-//                gaBlue.evolve();
             }
 
             if (player1.isDead()) {

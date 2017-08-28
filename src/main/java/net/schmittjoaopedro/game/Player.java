@@ -241,8 +241,8 @@ public class Player {
     @Override
     public String toString() {
         String body = "";
-        for(String s : getCardsSequence()) {
-            body += s;
+        for(double s : getCardYPosition()) {
+            body += "-" + ((int) s);
         }
         return body;
     }

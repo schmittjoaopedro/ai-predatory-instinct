@@ -5,6 +5,10 @@ import net.schmittjoaopedro.game.Player;
 import net.schmittjoaopedro.game.WarriorManager;
 
 import java.awt.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by root on 22/08/17.
@@ -124,8 +128,8 @@ public class GeneticAlgorithm {
         for (int i = 0; i < toEvolve.getDeckSize(); i++) {
             if (Math.random() < pM) {
                 toEvolve.getCardsSequence()[i] = WarriorManager.getInstance().getRandomLetter();
-                toEvolve.getCardXPosition()[i] = (int) (Math.random() * (toEvolve.getUW() - toEvolve.getLW()));
-                toEvolve.getCardYPosition()[i] = (int) (Math.random() * (toEvolve.getUH() - toEvolve.getLH()));
+                toEvolve.getCardYPosition()[i] = (int) toEvolve.getLH() + (Math.random() * (toEvolve.getUH() - toEvolve.getLH()));
+                toEvolve.getCardXPosition()[i] = (int) toEvolve.getLW() + (Math.random() * (toEvolve.getUW() - toEvolve.getLW()));
             }
         }
     }
@@ -140,7 +144,7 @@ public class GeneticAlgorithm {
         return best;
     }
 
-    public double[] calculateFitness(Arena[] arenas) {
+    /*public double[] calculateFitness(Arena[] arenas) {
         double[] fitness = new double[arenas.length];
         for(int a = 0; a < arenas.length; a++) {
             for(int i = 0; i < this.stepSize; i++) {
@@ -148,6 +152,26 @@ public class GeneticAlgorithm {
             }
             Player player = arenas[a].getPlayerByColor(colorToEvolve);
             fitness[a] = player.getLifeAmount() - player.getDamageAmount();
+        }
+        return fitness;
+    }*/
+
+    public double[] calculateFitness(Arena[] arenas) {
+        double[] fitness = new double[arenas.length];
+        try {
+            ThreadSimulator[] threads = new ThreadSimulator[arenas.length];
+            ExecutorService executor = Executors.newFixedThreadPool(arenas.length);
+            for (int a = 0; a < arenas.length; a++) {
+                threads[a] = new ThreadSimulator(arenas[a], stepSize, colorToEvolve);
+                executor.execute(threads[a]);
+            }
+            executor.shutdown();
+            executor.awaitTermination(30, TimeUnit.SECONDS);
+            for (int a = 0; a < arenas.length; a++) {
+                fitness[a] = threads[a].getFitness();
+            }
+        } catch (Exception ex) {
+            System.exit(1);
         }
         return fitness;
     }
