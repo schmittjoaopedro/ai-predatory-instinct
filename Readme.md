@@ -12,7 +12,7 @@ Algoritmos genéticos pertencem uma classe de técnicas inspiradas na evolução
 
 Clash Royale é um jogo de estratégia baseado em jogadas sequênciais de cartas que são posicionadas na arena com o objetivo de derrubar as torres do inimigo. As cartas somente podem ser posicionadas nos espaços conquistados e cada carta possui um lógica única que descreve sua interação com a arena. Na figura do exemplo abaixo, o jogador azul jogou duas cartas que avançaram pela ponte na zona do jogador em vermelho com o objetivo de destruir a torre. Além do posicionamento, cada carta possui um custo de elixir para ser lançada, assim conforme o tempo vai passando o elixir do jogador vai enchendo e liberando o uso das cartas.
 
-![alt text](http://i.utdstc.com/screen/android/thumb/clash-royale-5.jpg "Class example" { width=50% })
+<img src="http://i.utdstc.com/screen/android/thumb/clash-royale-5.jpg" width="200">
 
 ## Problema
 
@@ -54,7 +54,7 @@ A função fitness do algoritmo, executa para cada arena clonada um execução s
 
 Podemos ver no vídeo abaixo um exemplo de simulação do algoritmo na prática, o jogador azul está usando o algoritmo genético enquanto o jogador vermelho está usando uma lógica randômica (baseline).
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/fcrzux2yaJk/0.jpg)](https://www.youtube.com/watch?v=fcrzux2yaJk)
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=fcrzux2yaJk" target="_blank"><img src="https://img.youtube.com/vi/fcrzux2yaJk/0.jpg" alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 ## Referências
 
