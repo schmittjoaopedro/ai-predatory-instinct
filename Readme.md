@@ -27,11 +27,16 @@ In order to be able to perform the genetic algorithm tests, it was necessary to 
 1. [Arena](https://github.com/schmittjoaopedro/ai-predatory-instinct/blob/master/src/main/java/net/schmittjoaopedro/game/Arena.java): It has a width and height that the cards can be throw, is also composed of a list of warriors representing the agents fighting to destroy the towers, and has a list of players that has same areas size of the arena to play the cards (usually two players, and each one has half the arena).
 2. [Player](https://github.com/schmittjoaopedro/ai-predatory-instinct/blob/master/src/main/java/net/schmittjoaopedro/game/Player.java): Has the limits of the arena that can use to cast its cards, has the amount of accumulated elixir that will be used to launch new cards, has the sequence of cards that will be thrown with the position in the arena (x and y axis), and also has a Tower that when destroyed means the defeat of the player.
 3. [Warrior](https://github.com/schmittjoaopedro/ai-predatory-instinct/blob/master/src/main/java/net/schmittjoaopedro/game/warrior/Warrior.java): It represents the generic actions of a warrior. A warrior when thrown in the arena has the goal of going towards the enemy tower or the nearest enemy warrior and destroy it, if an enemy is not under his radius of attack he approaches the same to be able to annihilate it. There were modeled 6 types of warriors:
+
     3.1 [Dragon](https://github.com/schmittjoaopedro/ai-predatory-instinct/blob/master/src/main/java/net/schmittjoaopedro/game/warrior/Dragon.java): It has a medium cost, attacks warriors and towers, is a flying card, has medium life, takes little damage, and has a medium range radius.
+    
     3.2 [Giant](https://github.com/schmittjoaopedro/ai-predatory-instinct/blob/master/src/main/java/net/schmittjoaopedro/game/warrior/Giant.java): It has a high cost, attacks only the tower and not warriors, is a land card, has high life, takes a reasonable damage and has small range.
+    
     3.3 [Minipeka](https://github.com/schmittjoaopedro/ai-predatory-instinct/blob/master/src/main/java/net/schmittjoaopedro/game/warrior/Minipeka.java): It has a medium cost, attacks warriors and land towers, is a land card, has medium life, takes a lot of damage and has a small range.
+    
     3.4 [Musketeer](https://github.com/schmittjoaopedro/ai-predatory-instinct/blob/master/src/main/java/net/schmittjoaopedro/game/warrior/Musketeer.java): It has an medium cost, attacking towers and land and air warriors, is a terrestrial card, has low life, takes medium damage and has long range.
     3.5 [Skeleton](https://github.com/schmittjoaopedro/ai-predatory-instinct/blob/master/src/main/java/net/schmittjoaopedro/game/warrior/Skeleton.java): It has a low cost, attacking towers and land warriors, is a ground card, has very low life, low damage and small range.
+    
     3.6 [Witch](https://github.com/schmittjoaopedro/ai-predatory-instinct/blob/master/src/main/java/net/schmittjoaopedro/game/warrior/Witch.java): It has an medium cost, attacking towers and land and air warriors, it is a terrestrial card, has medium life, low damage, average range and invokes skeletons every 5 elixir.
 
 ### Initialization
