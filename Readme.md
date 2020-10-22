@@ -10,7 +10,7 @@ Genetic algorithms belong to a class of techniques inspired by the evolution of 
 
 Clash Royale is a strategy game based on sequential positioning of cards in the arena with the goal of knocking down the towers of the enemy. The cards can only be positioned in the conquered spaces, and each card has a unique logic that describes its interaction with the arena. In the example figure below, the blue player played two cards that advanced across the bridge in the player's red area in order to destroy the tower. In addition to the positioning, each card has a cost of elixir to be cast, so as the time goes and the elixir of the player is filling then the cards can be released.
 
-<img src="http://i.utdstc.com/screen/android/thumb/clash-royale-5.jpg" width="200">
+<img src="https://s2.glbimg.com/gNwRYfnqgSGKFGkghmtq5rRiSu4=/0x0:695x390/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2019/w/7/gmJJBkTtAOZsFyNznphg/clash-royale.jpg" width="200">
 
 ## Problem
 
